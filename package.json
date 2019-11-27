@@ -1,0 +1,14 @@
+{
+  "name": "devhub",
+  "version": "1.0.0",
+  "description": "A collection of helpful tools for developers and computer users.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Ian Burns",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^7.1.2"
+  }
+}
