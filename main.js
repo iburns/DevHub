@@ -50,6 +50,7 @@ function showMain() {
 function hideMain() {
   mainWindow.setAlwaysOnTop(false);
   mainWindow.hide();
+  app.hide();
 }
 
 // This method will be called when Electron has finished
