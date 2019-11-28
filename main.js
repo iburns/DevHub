@@ -15,7 +15,8 @@ function createWindow () {
     simpleFullscreen: true,
     show: false,
     frame: false,
-    backgroundColor: "#111111"
+    transparent: true,
+    vibrancy: "underpage"
   })
 
   // and load the index.html of the app.

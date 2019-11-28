@@ -14,7 +14,7 @@ html, body {
   padding: 0;
 }
 
-h1, h2, h3, span {
+h1, h2, h3, span, label {
   -webkit-user-select: none;
 }
 
@@ -24,9 +24,11 @@ h1, h2, h3, span {
 }
 
 .main {
-  padding: 32px;
-  width: 100%;
+  display: flex;
+  flex-flow: column;
   height: 100%;
+  padding: 8px;
+  width: 100%;
   background: #333;
 }
 
@@ -43,13 +45,15 @@ h1, h2, h3, span {
 
 textarea
 {
-    background: #000;
+    background: #222;
     border: none;
     color: white;
-    font-size: 1.5rem;
+    font-size: 1rem;
     -webkit-user-select: none;
     box-shadow: none;
     outline: 1px solid #333333;
+    width: inherit;
+    
 }
 
 .nav-bar {
@@ -102,4 +106,18 @@ textarea
 .input:checked + .label {
   background: #333;
   color: #fff;
+}
+
+#editor-title {
+  height: 3rem;
+  border: none;
+  box-shadow: none;
+  border-color: none;
+  background: transparent;
+  color: white;
+  font-size: 3rem;
+  text-decoration: bold;
+  margin: 8px;
+  width: auto;
+  outline: none;
 }
