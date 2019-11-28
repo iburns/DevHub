@@ -14,7 +14,7 @@ function createWindow () {
     fullscreen: true,
     simpleFullscreen: true,
     show: false,
-    backgroundColor: "#222222"
+    backgroundColor: "#111111"
   })
 
   // and load the index.html of the app.
@@ -66,9 +66,6 @@ app.on('ready', function() {
   if (!ret) {
     console.log('registration failed')
   }
-
-  // Check whether a shortcut is registered.
-  console.log(globalShortcut.isRegistered('CommandOrControl+Shift+D'))
 
   // create main window
   createWindow();
