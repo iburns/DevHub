@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow, globalShortcut} = require('electron')
+const {app, screen, BrowserWindow, globalShortcut} = require('electron')
 const path = require('path')
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -14,6 +14,7 @@ function createWindow () {
     fullscreen: true,
     simpleFullscreen: true,
     show: false,
+    frame: false,
     backgroundColor: "#111111"
   })
 
@@ -32,22 +33,23 @@ function createWindow () {
   })
 
   mainWindow.on('ready-to-show', function() { 
-    showMain();
+    //showMain();
   });
 }
 
 function showMain() {
+  app.dock.hide();
   mainWindow.show(); 
   mainWindow.focus(); 
-  app.dock.hide();
   mainWindow.setAlwaysOnTop(true, "screen-saver");
   mainWindow.setVisibleOnAllWorkspaces(true);
   mainWindow.fullScreenable = false;
+  app.dock.show()
 }
 
 function hideMain() {
-  mainWindow.hide();
   mainWindow.setAlwaysOnTop(false);
+  mainWindow.hide();
 }
 
 // This method will be called when Electron has finished
@@ -67,8 +69,11 @@ app.on('ready', function() {
     console.log('registration failed')
   }
 
-  // create main window
-  createWindow();
+  setTimeout(() => {
+    // create main window
+    createWindow();
+    showMain();
+  }, 10);
 })
 
 // Quit when all windows are closed.
