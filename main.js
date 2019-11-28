@@ -1,6 +1,8 @@
 // Modules to control application life and create native browser window
-const {app, screen, BrowserWindow, globalShortcut} = require('electron')
+const {app, screen, BrowserWindow, globalShortcut, ipcMain} = require('electron')
 const path = require('path')
+const fs = require('fs');
+const Store = require('./js/store.js');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -16,8 +18,13 @@ function createWindow () {
     show: false,
     frame: false,
     transparent: true,
-    vibrancy: "underpage"
+    vibrancy: "underpage",
+    webPreferences: {
+      nodeIntegration: true
+    }
   })
+
+  mainWindow.webContents.openDevTools();
 
   // and load the index.html of the app.
   mainWindow.loadFile('index.html')
@@ -34,7 +41,7 @@ function createWindow () {
   })
 
   mainWindow.on('ready-to-show', function() { 
-    //showMain();
+    showMain();
   });
 }
 
@@ -74,7 +81,6 @@ app.on('ready', function() {
   setTimeout(() => {
     // create main window
     createWindow();
-    showMain();
   }, 10);
 })
 
@@ -100,4 +106,26 @@ app.on('will-quit', () => {
 
   // Unregister all shortcuts.
   globalShortcut.unregisterAll()
+})
+
+const store = new Store({
+  // We'll call our data file 'user-preferences'
+  configName: 'board1',
+  defaults: {
+    text: "Enter text..."
+  }
+});
+
+ipcMain.on('save-note', (event, arg) => {
+  console.log('to save');
+  console.log(arg);
+
+  store.set('text', arg)
+  event.returnValue = 'boop';
+})
+
+ipcMain.on('load-note', (event, arg) => {
+  var txt = store.get('text')
+  console.log(txt);
+  event.returnValue = txt;
 })

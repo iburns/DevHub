@@ -4,6 +4,7 @@
   <link rel="stylesheet" type="text/css" href="css/index.css">
   <link href="css/quill.snow.css" rel="stylesheet">
   <link href="css/quill.bubble.css" rel="stylesheet">
+  <link href="css/highlight/monokai-sublime.css" rel="stylesheet">
 </head>
 
 <body>
@@ -11,7 +12,7 @@
   <div class="nav-bar">
     <div class="tabs">
       <input name="tabs" type="radio" id="tab-1" checked="checked" class="input" />
-      <label for="tab-1" class="label">Orange</label>
+      <label for="tab-1" class="label" data-bind="text: title"></label>
       <input name="tabs" type="radio" id="tab-2" class="input" />
       <label for="tab-2" class="label">Red</label>
       <input name="tabs" type="radio" id="__tab__new__" class="input" />
@@ -19,46 +20,18 @@
     </div>
   </div>
   <div class="main">
-    <input id="editor-title" value="Title" type="text" />
+    <input id="editor-title" type="text" placeholder="Enter Title Here..." data-bind="value: title, valueUpdate: 'afterkeydown'" />
     <!-- Create the editor container -->
-    <div id="editor">
-      <p>Hello World!</p>
-      <p>Some initial <strong>bold</strong> text</p>
-      <p><br></p>
-    </div>
+    <div id="editor"></div>
   </div>
 </body>
 
+<script src="js/highlight.pack.js"></script>
 <!-- Include the Quill library -->
 <script src="js/quill.js"></script>
+<script src="js/knockout-3.5.1.js"></script>
 
 <!-- Initialize Quill editor -->
 <script>
-  var toolbarOptions = [
-  ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-  ['blockquote', 'code-block'],
-
-  // [{ 'header': 1 }, { 'header': 2 }],               // custom button values
-  [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-  [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
-  [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-  // [{ 'direction': 'rtl' }],                         // text direction
-
-  [{ 'font': [] }],
-  [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-  [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-
-  [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-  [{ 'align': [] }],
-
-  ['clean']                                         // remove formatting button
-];
-
-  var quill = new Quill('#editor', {
-    modules: {
-      syntax: true,              // Include syntax module
-      toolbar: toolbarOptions  // Include button in toolbar
-    },
-    theme: 'snow'
-  });
+  require('./js/renderer')
 </script>
