@@ -68,14 +68,22 @@ function vm() {
 
   self.save = function() {
     console.log('saving');
-    const result = ipcRenderer.sendSync('save-note', JSON.stringify(quill.getContents()));
+    data = {
+      text: JSON.stringify(quill.getContents()),
+      title: self.title()
+    };
+    console.log(data);
+    const result = ipcRenderer.sendSync('save-note', data);
   }
 
   self.load = function() {
     const result = ipcRenderer.sendSync('load-note');
-    quill.setContents(JSON.parse(result));
+    result.text = JSON.parse(result.text)
+    console.log('load');
+    console.log(result);
+    quill.setContents(result.text);
+    self.title(result.title)
   }
-
 
   self.load();
 

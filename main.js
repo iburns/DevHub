@@ -106,12 +106,13 @@ app.on('will-quit', () => {
 
   // Unregister all shortcuts.
   globalShortcut.unregisterAll()
-})
+});
 
 const store = new Store({
   // We'll call our data file 'user-preferences'
   configName: 'board1',
   defaults: {
+    title: "Title",
     text: "Enter text..."
   }
 });
@@ -120,12 +121,17 @@ ipcMain.on('save-note', (event, arg) => {
   console.log('to save');
   console.log(arg);
 
-  store.set('text', arg)
+  store.set('text', arg.text)
+  store.set('title', arg.title)
   event.returnValue = 'boop';
-})
+});
 
 ipcMain.on('load-note', (event, arg) => {
+  var title = store.get('title')
   var txt = store.get('text')
+  console.log(title);
   console.log(txt);
-  event.returnValue = txt;
-})
+  event.returnValue = { text: txt,
+    title: title
+  }
+});
